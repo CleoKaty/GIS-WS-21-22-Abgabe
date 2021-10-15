@@ -3,7 +3,8 @@
 
 ### **1. HTML-Grundlagen**
  * Code:
- * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/Aufgabe_1_html_Grundlagen
+ * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/Abgabe1
+ *
  
 </br> 
 
