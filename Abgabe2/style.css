@@ -1,0 +1,56 @@
+body{
+    background-color: rgb(173, 235, 111);
+}
+
+div {
+    width: 300px;
+    border: 15px solid rgb(50, 105, 50);
+    padding: 50px;
+    margin: 20px;
+  }
+#maintext{
+    position: static;
+    font-size: 2em;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(255, 255, 255);
+    background-image: url("Ressources/back.PNG") ;
+    background-color: rgb(0, 0, 0);
+    width: 40vw;
+  }
+  [href]{
+    color: rgb(12, 85, 12);
+    background-color: rgb(173, 235, 111);
+  }
+  nav div{
+    position: sticky;
+    background-color: rgb(173, 235, 111);
+    width: 300px;
+    border: 15px solid rgb(19, 59, 19);
+    padding: 50px;
+    margin: 20px;
+  }
+  .up{
+    font-family: 'Italianno', cursive;
+    font-size: 4em;
+  }
+  td,th{
+    position: static;
+    font-size: small;
+    font-family: 'Montserrat', sans-serif; 
+    color: #ccc;
+    background-color: rgb(12, 85, 12);
+    width: 50vw;
+    height: 5vw;
+  }
+  a:hover{
+      font-size: 3em;
+      background-color: rgb(173, 235, 111);
+  }
+  a:visited{
+    color: darkgreen;
+  }
+
+  li::selection{
+    color: darkgreen;
+    background-color: white;
+  }
