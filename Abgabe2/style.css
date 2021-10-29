@@ -1,7 +1,15 @@
 body{
     background-color: rgb(173, 235, 111);
 }
-
+main{
+  display: flex;
+  justify-content: center;
+}
+footer{
+  display: flex;
+  justify-content: space-between;
+  align-content: stretch;
+}
 header{
   background-color: rgb(230, 248, 195);
 }
@@ -16,11 +24,9 @@ div {
     font-size: 2em;
     font-family: 'Montserrat', sans-serif;
     color: rgb(255, 255, 255);
-    background-image: url("Ressources/back.PNG") ;
-    background-color: rgb(0, 0, 0);
+   /* background-image: url("Ressources/back.PNG") ;*/
     width: 40vw;
-    display: flex;
-    justify-content: center;
+   
   }
   [href]{
     color: rgb(12, 85, 12);
@@ -58,8 +64,8 @@ div {
     font-family: 'Montserrat', sans-serif; 
     color: #ccc;
     background-color: rgb(12, 85, 12);
-    width: 200px;
-    height: 50px;
+    width: 4000px;
+    height: 100px;
   }
   tr td{
     background-color: rgb(230, 248, 195);
