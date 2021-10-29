@@ -1,7 +1,9 @@
 body{
     background-color: rgb(173, 235, 111);
 }
-
+header{
+  background-color: rgb(230, 248, 195);
+}
 div {
     width: 300px;
     border: 15px solid rgb(50, 105, 50);
@@ -21,13 +23,24 @@ div {
     color: rgb(12, 85, 12);
     background-color: rgb(173, 235, 111);
   }
+  a.poo{
+    background-color: rgb(230, 248, 195);
+    color: rgb(12, 85, 12);
+  }
   nav div{
-    position: sticky;
-    background-color: rgb(173, 235, 111);
+    
+    background-color: rgb(230, 248, 195);
     width: 300px;
     border: 15px solid rgb(19, 59, 19);
     padding: 50px;
     margin: 20px;
+    
+  }
+  nav{
+    position: sticky;
+    top:0;
+    display: flex;
+    justify-content: flex-end;
   }
   .up{
     font-family: 'Italianno', cursive;
@@ -42,15 +55,24 @@ div {
     width: 50vw;
     height: 5vw;
   }
+  tr td{
+    background-color: rgb(230, 248, 195);
+    color: rgb(12, 85, 12);
+  }
   a:hover{
-      font-size: 3em;
+      font-size: 2em;
       background-color: rgb(173, 235, 111);
   }
   a:visited{
-    color: darkgreen;
+    color: rgb(2, 22, 2);
   }
 
-  li::selection{
+  li a::selection{
     color: darkgreen;
     background-color: white;
   }
+  a.poo :hover{
+    background-color: rgb(230, 248, 195);
+    color: rgb(12, 85, 12);
+  }
+ 
