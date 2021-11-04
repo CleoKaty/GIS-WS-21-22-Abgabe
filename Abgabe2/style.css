@@ -13,6 +13,13 @@ footer{
 header{
   background-color: rgb(230, 248, 195);
 }
+@media (min-width: 45em) {
+  article {
+      float:inline-start;
+      width: 30%;
+    display: flex;
+  }
+}
 div {
     width: 300px;
     border: 15px solid rgb(50, 105, 50);
