@@ -49,7 +49,7 @@ let events: any[][] = [
   ["Cat Stevens", 12.99],
   ["Mark Forster", 2.1],
   ["Helene Fischer", 3.1],
-  ["Bee Gees", 25.2],
+  ["Bee Gees", 25.2]
 ];
 
 // -- HIER BITTE IHRE LÖSUNG ZUR AUFGABE 2 EINTRAGEN
@@ -59,7 +59,7 @@ let laengearray: number = events.length;
 console.log(laengearray);
 
 // Lösung b)
-for (let i = 0; i < events.length; i++) {
+for (let i: number = 0; i < events.length; i++) {
    console.log(events[i][0]);
    console.log(events[i][1]);
    console.log("------------");
@@ -68,11 +68,11 @@ for (let i = 0; i < events.length; i++) {
 
 // Lösung c) 
 
-function grossenummer(liste:number[][]): number{
+function grossenummer(liste: number[][]): number {
   let gross: number = 0;
   let stelle: number = 0;
-  for (let i = 0; i < liste.length; i++) {
-    if (liste[i][1]>gross) {
+  for (let i: number = 0; i < liste.length; i++) {
+    if (liste[i][1] > gross) {
       gross = liste[i][1];
       stelle = i;
     }
@@ -85,28 +85,28 @@ grossenummer(events);
 
 
 // Lösung d) 
-function namensuche(derName: string, liste: string[][]): boolean{
+function namensuche(derName: string, liste: string[][]): boolean {
   let vorhanden: boolean;
   let stelle: number = 0;
-  for (let i = 0; i < liste.length; i++) {
-    if(liste[i][0]== derName){
+  for (let i: number = 0; i < liste.length; i++) {
+    if (liste[i][0] == derName) {
       vorhanden = true;
       stelle = i;
       break;
     }
   }
-  if(vorhanden){
-    console.log(`${derName} ist an Stelle ${stelle}.`)
-  }else{
-    console.log(`Dieser Name ist nicht vorhanden.`)
+  if (vorhanden) {
+    console.log(`${derName} ist an Stelle ${stelle}.`);
+  } else {
+    console.log(`Dieser Name ist nicht vorhanden.`);
   }
   return vorhanden;
 }
 // Lösung e)
-function factorial(n:number):void{
+function factorial(n: number): void {
   let index: number = 1;
   let ergebnis: number = 1;
-  while(index <= n){
+  while (index <= n) {
     ergebnis *= index;
     index++;
   }
@@ -118,39 +118,41 @@ factorial(10);
 // Lösung f) 
 
 let ergebnis: number = 0;
-for (let index = 0; index <= 100; index++) {
+for (let index: number = 0; index <= 100; index++) {
   let wahr: boolean = false;
-  ergebnis = index/3;
-  let zahl:string = String(ergebnis);
-  if(zahl.length <= 2){
+  ergebnis = index / 3;
+  let zahl: string = String(ergebnis);
+  let a: number = Number(zahl[0]);
+  let b: number = Number(zahl[1]);
+  if (a + b == 18 || 15 || 12 || 9 || 6 || 3) {
     wahr = true;
   }
-  if (wahr) {
-    console.log(ergebnis);
+  if (wahr == true) {
+    console.log(index);
   }
 }
 
 // Lösung g)
-class ConcertEvents{
+class ConcertEvents {
   price: number;
   interpret: string;
-  constructor(price:number,interpret:string){
-    this.interpret=interpret;
-    this.price=price;
+  constructor(price: number, interpret: string) {
+    this.interpret = interpret;
+    this.price = price;
   }
   public show(): void {
-    console.log(`the price is ${this.price}.`)
-    console.log(`The interpret is ${this.interpret}.`)
+    console.log(`the price is ${this.price}.`);
+    console.log(`The interpret is ${this.interpret}.`);
   }
 }
 
 // Lösung h)
 let kunstliste: ConcertEvents[];
-for (let i = 0; i < events.length; i++) {
-  let neu: ConcertEvents = new ConcertEvents(events[i][1],events[i][0]) ;
+for (let i: number = 0; i < events.length; i++) {
+  let neu: ConcertEvents = new ConcertEvents(events[i][1], events[i][0]) ;
   kunstliste.push(neu);
 }
-for (let i = 0; i < kunstliste.length; i++) {
+for (let i: number = 0; i < kunstliste.length; i++) {
   kunstliste[i].show() ;
   
 }
