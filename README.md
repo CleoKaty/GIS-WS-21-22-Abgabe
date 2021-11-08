@@ -19,3 +19,4 @@
  ### **3. Typescript-Grundlagen**
 
  * Code: https://github.com/CleoKaty/GIS-WS-21-22-Abgabe/tree/main/Typescript/Aufgabe1
+ * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/Typescript/Aufgabe1/index.html
