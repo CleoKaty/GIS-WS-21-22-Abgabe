@@ -107,6 +107,9 @@ for (let index = 0; index <= 100; index++) {
     if (a + b == 18 || 15 || 12 || 9 || 6 || 3) {
         wahr = true;
     }
+    else {
+        wahr = false;
+    }
     if (wahr == true) {
         console.log(index);
     }

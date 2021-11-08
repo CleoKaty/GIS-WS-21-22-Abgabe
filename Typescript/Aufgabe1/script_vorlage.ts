@@ -126,6 +126,8 @@ for (let index: number = 0; index <= 100; index++) {
   let b: number = Number(zahl[1]);
   if (a + b == 18 || 15 || 12 || 9 || 6 || 3) {
     wahr = true;
+  } else {
+    wahr = false;
   }
   if (wahr == true) {
     console.log(index);
