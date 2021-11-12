@@ -20,7 +20,7 @@
         <h2 class="up">Events</h2> 
     </header>
     <div>
-        <table>
+        <table class = "table">
             <th>Veranstaltung</th>
             <th>Datum</th>
             <th>Uhrzeit</th>
@@ -30,28 +30,34 @@
                 <td>22.08.</td>
                 <td>18:00</td>
                 <td>Vulkanstrand</td>
+                <td><button type ="button">delete</button></td>
             </tr>
             <tr>
                 <td>Weinfest</td>
                 <td>12.10.</td>
                 <td>14.00</td>
                 <td>Weinerei Valenc</td>
+                <td><button type ="button">delete</button></td>
             </tr>
             <tr>
                 <td>Heiße Quelle</td>
                 <td>05.01</td>
                 <td>9:00</td>
                 <td>Quellenbad</td>
+                <td><button type ="button">delete</button></td>
             </tr>
         </table>
     </div>
     <div>
         <h3>Neues Event:</h3>
         <p>Interpret</p>
-        <input id= "Interpret" type ="text" name="interpretinput">
+        <input id= "interpret" type ="text" name="interpretinput"/>
         <p>Preis</p>
-        <input id = "Preis" type ="number" name="preisinput">
-
+        <input id = "preis" type ="number" name="preisinput"/>
+        <p>Zeit</p>
+        <input id = "zeit" type ="datetime-local" name="zeitinput"/>
+        <p></p>
+        <button id="enter" type="button">Event eintragen</button>
     </div>
 </body>
 <nav>

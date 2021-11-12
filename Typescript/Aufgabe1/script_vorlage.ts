@@ -39,7 +39,7 @@ function func2(name: string): string {
 
 // -- [Aufgabe 2]
 
-let events: any[][] = [
+let events: any [][] = [
   ["Mark Knopfler", 10.1],
   ["Pink Floyd", 15.9],
   ["Metallica", 20.1],
