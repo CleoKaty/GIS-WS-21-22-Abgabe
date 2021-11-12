@@ -117,14 +117,11 @@ factorial(10);
 
 // Lösung f) 
 
-let ergebnis: number = 0;
+
 for (let index: number = 0; index <= 100; index++) {
   let wahr: boolean = false;
-  ergebnis = index / 3;
-  let zahl: string = String(ergebnis);
-  let a: number = Number(zahl[0]);
-  let b: number = Number(zahl[1]);
-  if (a + b == 18 || 15 || 12 || 9 || 6 || 3) {
+  
+  if ( index % 3 == 0) {
     wahr = true;
   } else {
     wahr = false;
@@ -149,7 +146,7 @@ class ConcertEvents {
 }
 
 // Lösung h)
-let kunstliste: ConcertEvents[];
+let kunstliste: ConcertEvents[] = [];
 for (let i: number = 0; i < events.length; i++) {
   let neu: ConcertEvents = new ConcertEvents(events[i][1], events[i][0]) ;
   kunstliste.push(neu);

@@ -1,0 +1,101 @@
+body{
+    background-color: rgb(173, 235, 111);
+}
+main{
+  display: flex;
+  justify-content: center;
+}
+footer{
+  display: flex;
+  justify-content: space-between;
+  align-content: stretch;
+}
+header{
+  background-color: rgb(230, 248, 195);
+}
+@media (min-width: 45em) {
+  article {
+      float:inline-start;
+      width: 30%;
+    display: flex;
+  }
+}
+div {
+    width: 300px;
+    border: 15px solid rgb(50, 105, 50);
+    padding: 50px;
+    margin: 20px;
+  }
+#maintext{
+    position: static;
+    font-size: 2em;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(255, 255, 255);
+   /* background-image: url("Ressources/back.PNG") radial-gradient ;*/
+    width: 40vw;
+   
+  }
+  [href]{
+    color: rgb(12, 85, 12);
+    background-color: rgb(173, 235, 111);
+  }
+  .poo{
+    background-color: rgb(230, 248, 195);
+    color: rgb(12, 85, 12);
+  }
+  nav div{
+    
+    background-color: rgb(230, 248, 195);
+    width: 300px;
+    border: 15px solid rgb(19, 59, 19);
+    padding: 50px;
+    margin: 20px;
+    transition: background-colour 1s;
+  }
+  nav div:hover{
+    background-color: white;
+  }
+  nav{
+    position: sticky;
+    top:0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .up{
+    font-family: 'Italianno', cursive;
+    font-size: 4em;
+  }
+  td,th{
+    position: static;
+    font-size: small;
+    font-family: 'Montserrat', sans-serif; 
+    color: #ccc;
+    background-color: rgb(12, 85, 12);
+    width: 4000px;
+    height: 100px;
+  }
+  tr td{
+    background-color: rgb(230, 248, 195);
+    color: rgb(12, 85, 12);
+  }
+  a:hover{
+      font-size: 2em;
+      background-color: rgb(173, 235, 111);
+  }
+  a:visited{
+    color: rgb(2, 22, 2);
+  }
+
+  li a::selection{
+    color: darkgreen;
+    background-color: white;
+  }
+  a.poo :hover{
+    background-color: rgb(230, 248, 195);
+    color: rgb(12, 85, 12);
+  }
+  table{
+    display: flex;
+    justify-content: center;
+  }
+ 

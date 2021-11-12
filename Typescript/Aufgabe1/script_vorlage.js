@@ -97,14 +97,9 @@ function factorial(n) {
 factorial(4.5);
 factorial(10);
 // Lösung f) 
-let ergebnis = 0;
 for (let index = 0; index <= 100; index++) {
     let wahr = false;
-    ergebnis = index / 3;
-    let zahl = String(ergebnis);
-    let a = Number(zahl[0]);
-    let b = Number(zahl[1]);
-    if (a + b == 18 || 15 || 12 || 9 || 6 || 3) {
+    if (index % 3 == 0) {
         wahr = true;
     }
     else {
@@ -128,7 +123,7 @@ class ConcertEvents {
     }
 }
 // Lösung h)
-let kunstliste;
+let kunstliste = [];
 for (let i = 0; i < events.length; i++) {
     let neu = new ConcertEvents(events[i][1], events[i][0]);
     kunstliste.push(neu);
