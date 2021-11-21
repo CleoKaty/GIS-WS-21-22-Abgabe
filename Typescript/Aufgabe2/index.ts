@@ -1,5 +1,4 @@
 namespace Aufgabe {
-    /*Kill me pls */
     let interpret: HTMLInputElement = <HTMLInputElement> document.getElementById("interpret") as HTMLInputElement;
     let preis: HTMLInputElement = <HTMLInputElement> document.getElementById("preis") as HTMLInputElement;
     let datum: HTMLInputElement = <HTMLInputElement> document.getElementById("zeit") as HTMLInputElement;
