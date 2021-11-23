@@ -28,3 +28,10 @@
  * Code: https://github.com/CleoKaty/GIS-WS-21-22-Abgabe/tree/main/Typescript/Aufgabe2
  * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/Typescript/Aufgabe2/events.html
 
+</br>
+
+ ### **5. Json - leider funktioniert es nicht **
+
+ * Code: https://github.com/CleoKaty/GIS-WS-21-22-Abgabe/tree/main/Typescript/Aufgabe4
+ * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/Typescript/Aufgabe4/events.html
+
