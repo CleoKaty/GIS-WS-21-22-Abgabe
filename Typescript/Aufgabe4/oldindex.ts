@@ -20,24 +20,19 @@ namespace Aufgabe {
     let preis: HTMLInputElement = <HTMLInputElement> document.getElementById("preis") as HTMLInputElement;
     let datum: HTMLInputElement = <HTMLInputElement> document.getElementById("zeit") as HTMLInputElement;
     let button: HTMLElement = document.getElementById("enter");
+    
 
+    /*Array anlegen und mit Json im Local-Storage abspeichern */
+    let standartevent: Eventis = new Eventis("Mamamoo", "32.9", "21.08.2021");
     let arrayevents: Eventis[] = [];
+    arrayevents.push(standartevent);
     let localstoragearray: Eventis[];
     let localstoragestring: string = localStorage.getItem("myArray");
     localstoragearray = JSON.parse(localstoragestring);
-
-    /*Array anlegen und mit Json im Local-Storage abspeichern */
-    if (localStorage.length == 0 ) {
-        let standartevent: Eventis = new Eventis("Mamamoo", "32.9", "21.08.2021");
-        let eventstring: string = JSON.stringify(standartevent);
-        localStorage.setItem("myArray", eventstring);
-    }
-    
-    
     update();
     aktualisierenListe();
     let stringarray: string = JSON.stringify(arrayevents);
-    /*localStorage.setItem("myArray", stringarray);*/
+    localStorage.setItem("myArray", stringarray);
 
     /*local storage events abrufen */
     function update(): void {
@@ -57,9 +52,6 @@ namespace Aufgabe {
                 /*delete-function */
                 function deleter (): void {
                     document.getElementById("table").removeChild(liste);
-                    
-                
-                    
                 }
 
 
@@ -134,9 +126,9 @@ namespace Aufgabe {
 
             let neuEvent: Eventis = new Eventis(interpret.value, preis.value, datum.value);
             arrayevents.push(neuEvent);
-            
-            aktualisierenListe();
 
+            aktualisierenListe();
+            
             stringarray = JSON.stringify(arrayevents);
             localStorage.setItem("myArray", stringarray);
 

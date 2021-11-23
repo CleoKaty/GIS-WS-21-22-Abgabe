@@ -17,20 +17,17 @@ var Aufgabe;
     let preis = document.getElementById("preis");
     let datum = document.getElementById("zeit");
     let button = document.getElementById("enter");
+    /*Array anlegen und mit Json im Local-Storage abspeichern */
+    let standartevent = new Eventis("Mamamoo", "32.9", "21.08.2021");
     let arrayevents = [];
+    arrayevents.push(standartevent);
     let localstoragearray;
     let localstoragestring = localStorage.getItem("myArray");
     localstoragearray = JSON.parse(localstoragestring);
-    /*Array anlegen und mit Json im Local-Storage abspeichern */
-    if (localStorage.length == 0) {
-        let standartevent = new Eventis("Mamamoo", "32.9", "21.08.2021");
-        let eventstring = JSON.stringify(standartevent);
-        localStorage.setItem("myArray", eventstring);
-    }
     update();
     aktualisierenListe();
     let stringarray = JSON.stringify(arrayevents);
-    /*localStorage.setItem("myArray", stringarray);*/
+    localStorage.setItem("myArray", stringarray);
     /*local storage events abrufen */
     function update() {
         if (localstoragearray != null && localstoragearray.length > 0) {
@@ -133,4 +130,4 @@ var Aufgabe;
         }
     });
 })(Aufgabe || (Aufgabe = {}));
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=oldindex.js.map
