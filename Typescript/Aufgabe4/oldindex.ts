@@ -32,7 +32,7 @@ namespace Aufgabe {
     update();
     aktualisierenListe();
     let stringarray: string = JSON.stringify(arrayevents);
-    localStorage.setItem("myArray", stringarray);
+   // localStorage.setItem("myArray", stringarray);
 
     /*local storage events abrufen */
     function update(): void {

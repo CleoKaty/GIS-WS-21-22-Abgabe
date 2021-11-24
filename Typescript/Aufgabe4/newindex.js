@@ -13,28 +13,51 @@ var Aufgabe;
         }
     }
     /*Geholte Elemente von html */
+    //TODO: Eingabefelder clearen
     let interpret = document.getElementById("interpret");
     let preis = document.getElementById("preis");
     let datum = document.getElementById("zeit");
     let button = document.getElementById("enter");
-    let arrayevents = [];
-    let localstoragearray;
-    let localstoragestring = localStorage.getItem("myArray");
-    localstoragearray = JSON.parse(localstoragestring);
+    let localstoragearray = [];
+    let localstoragestring;
+    console.log(localstoragearray);
     /*Array anlegen und mit Json im Local-Storage abspeichern */
     if (localStorage.length == 0) {
+        //TODO: Event erschein nur nach clearen des Lokal Stores, nach reload nicht mehr in Tabelle
         let standartevent = new Eventis("Mamamoo", "32.9", "21.08.2021");
+        //let neuEvent: Eventis = new Eventis(interpret.value, preis.value, datum.value);
         let eventstring = JSON.stringify(standartevent);
         localStorage.setItem("myArray", eventstring);
+        console.log("Eventstring", eventstring);
+        localstoragearray[0] = new Eventis("Mamamoo", "32.9", "21.08.2021");
+        //localstoragearray.push(new Eventis("Mamamoo", "32.9", "21.08.2021"));
     }
-    update();
-    aktualisierenListe();
-    let stringarray = JSON.stringify(arrayevents);
+    else {
+        for (let i = 1; i <= localStorage.length; i++) {
+            localstoragestring = localStorage.getItem("myArray");
+            if (i == 1) {
+                localstoragearray = JSON.parse(localstoragestring);
+            }
+            //TODO: string hat immer nur länge 1 
+            else {
+                localstoragearray.push(JSON.parse(localstoragestring));
+                console.log("else", localstoragearray);
+            }
+        }
+    }
+    console.log("Before:", localstoragearray);
+    update(localstoragearray);
+    console.log("After:", localstoragearray);
+    aktualisierenListe(localstoragearray);
     /*localStorage.setItem("myArray", stringarray);*/
     /*local storage events abrufen */
-    function update() {
-        if (localstoragearray != null && localstoragearray.length > 0) {
-            for (let index = 0; index < localstoragearray.length; index++) {
+    function update(storagearray) {
+        console.log("Array", storagearray);
+        console.log("Lenght", storagearray.length);
+        //TODO: Lenght is undefine
+        //console.log("Array",storagearray); lenght funktioniert nicht ist undefined
+        if (storagearray != null && storagearray.length > 0) {
+            for (let index = 0; index < storagearray.length; index++) {
                 /*Elemente anlegen für neue Tabelleneinträge */
                 let liste = document.createElement("tr");
                 let a = document.createElement("td");
@@ -45,13 +68,14 @@ var Aufgabe;
                 deletebutton.innerText = "delete";
                 deletebutton.addEventListener("click", deleter);
                 /*delete-function */
+                //TODO: deletfunktion fixen 
                 function deleter() {
                     document.getElementById("table").removeChild(liste);
                 }
                 document.getElementById("table").appendChild(liste);
-                a.innerText = localstoragearray[index].person;
-                b.innerText = localstoragearray[index].preis;
-                c.innerText = localstoragearray[index].datum;
+                a.innerText = storagearray[index].person;
+                b.innerText = storagearray[index].preis;
+                c.innerText = storagearray[index].datum;
                 d.appendChild(deletebutton);
                 liste.appendChild(a);
                 liste.appendChild(b);
@@ -60,13 +84,15 @@ var Aufgabe;
             }
         }
     }
-    function aktualisierenListe() {
-        if (arrayevents.length > 0 && arrayevents != null) {
+    function aktualisierenListe(eventarry) {
+        console.log(1);
+        if (eventarry.length > 0 && eventarry != null) {
+            console.log(2);
             /*wiederholungen verhindern */
             while (document.getElementById("table").lastChild != document.getElementById("wichtig")) {
                 document.getElementById("table").removeChild(document.getElementById("table").lastChild);
             }
-            for (let index = 0; index < arrayevents.length; index++) {
+            for (let index = 0; index < eventarry.length; index++) {
                 /*Elemente anlegen */
                 let zeile = document.createElement("tr");
                 let a1 = document.createElement("td");
@@ -78,12 +104,13 @@ var Aufgabe;
                 deletebutton.addEventListener("click", deleter);
                 /*delete-function */
                 function deleter() {
+                    //TODO: deletfunktion fixen 
                     document.getElementById("table").removeChild(zeile);
                 }
                 document.getElementById("table").appendChild(zeile);
-                a1.innerText = arrayevents[index].person;
-                b1.innerText = arrayevents[index].preis;
-                c1.innerText = arrayevents[index].datum;
+                a1.innerText = eventarry[index].person;
+                b1.innerText = eventarry[index].preis;
+                c1.innerText = eventarry[index].datum;
                 d1.appendChild(deletebutton);
                 zeile.appendChild(a1);
                 zeile.appendChild(b1);
@@ -99,27 +126,28 @@ var Aufgabe;
             preis.style.borderColor = "black";
             datum.style.borderColor = "black";
             let neuEvent = new Eventis(interpret.value, preis.value, datum.value);
-            arrayevents.push(neuEvent);
-            aktualisierenListe();
-            stringarray = JSON.stringify(arrayevents);
-            localStorage.setItem("myArray", stringarray);
-            console.log(arrayevents);
-            /* let liste1: HTMLElement = document.createElement("tr");
-             let a1: HTMLElement = document.createElement("td");
-             let b1: HTMLElement = document.createElement("td");
-             let c1: HTMLElement = document.createElement("td");
-             let d1: HTMLElement = document.createElement("td");
-             let deletebutton: HTMLElement = document.createElement("button");
-             
-             document.getElementById("table").appendChild(liste1);
-             a1.innerText = interpret.value;
-             b1.innerText = preis.value;
-             c1.innerText = datum.value;
-             d1.appendChild(deletebutton);
-             liste1.appendChild(a);
-             liste1.appendChild(b);
-             liste1.appendChild(c);
-             liste1.appendChild(d);*/
+            console.log(neuEvent);
+            for (let i = 1; i <= localStorage.length; i++) {
+                console.log("Lengthbutton", localStorage.length);
+                localstoragestring = localStorage.getItem("myArray");
+                console.log(localstoragestring);
+                if (i == 1) {
+                    localstoragearray = JSON.parse(localstoragestring);
+                    console.log("i=1", localstoragearray);
+                }
+                //TODO: string hat immer nur länge 1 
+                else {
+                    localstoragearray.push(JSON.parse(localstoragestring));
+                    console.log("else", localstoragearray);
+                }
+            }
+            localstoragearray.push(neuEvent);
+            //localstoragearray[localStorage.length] = neuEvent;
+            console.log("Array after button", localstoragearray);
+            localstoragestring = JSON.stringify(localstoragearray);
+            console.log("String after Button", localstoragestring);
+            localStorage.setItem("myArray", localstoragestring);
+            aktualisierenListe(localstoragearray);
         }
         else {
             if (interpret.value == "") {
@@ -134,4 +162,4 @@ var Aufgabe;
         }
     });
 })(Aufgabe || (Aufgabe = {}));
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=newindex.js.map

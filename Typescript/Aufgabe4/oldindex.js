@@ -27,7 +27,7 @@ var Aufgabe;
     update();
     aktualisierenListe();
     let stringarray = JSON.stringify(arrayevents);
-    localStorage.setItem("myArray", stringarray);
+    // localStorage.setItem("myArray", stringarray);
     /*local storage events abrufen */
     function update() {
         if (localstoragearray != null && localstoragearray.length > 0) {
