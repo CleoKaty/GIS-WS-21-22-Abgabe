@@ -23,7 +23,7 @@ namespace Aufgabe {
 
     let localstoragearray: Eventis[] = [];
     let localstoragestring: string;
-    console.log(localstoragearray);
+    
 
     /*Array anlegen und mit Json im Local-Storage abspeichern */
     if (localStorage.length == 0 ) {
@@ -32,7 +32,6 @@ namespace Aufgabe {
         //let neuEvent: Eventis = new Eventis(interpret.value, preis.value, datum.value);
         let eventstring: string = JSON.stringify(standartevent);
         localStorage.setItem("myArray", eventstring);
-        console.log("Eventstring", eventstring);
         localstoragearray[0] = new Eventis("Mamamoo", "32.9", "21.08.2021");
         //localstoragearray.push(new Eventis("Mamamoo", "32.9", "21.08.2021"));
     }
@@ -58,8 +57,7 @@ namespace Aufgabe {
 
     /*local storage events abrufen */
     function update(storagearray: Eventis[]): void {
-        console.log("Array",storagearray);
-        console.log("Lenght",storagearray.length); 
+        
         //TODO: Lenght is undefine
         //console.log("Array",storagearray); lenght funktioniert nicht ist undefined
         if (storagearray != null && storagearray.length > 0) {
@@ -95,9 +93,7 @@ namespace Aufgabe {
         }
     }
     function aktualisierenListe(eventarry: Eventis[]): void {
-        console.log(1);
         if (eventarry.length > 0 && eventarry != null) {
-            console.log(2);
             
             /*wiederholungen verhindern */
                 
