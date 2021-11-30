@@ -30,8 +30,8 @@
 
 </br>
 
- ### **5. Json - das delete funktioniert leider nicht genau **
+ ### **5. Json **
 
- * Code: https://github.com/CleoKaty/GIS-WS-21-22-Abgabe/tree/main/Typescript/Aufgabe4
- * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/Typescript/Aufgabe4/events.html
+ * Code: https://github.com/CleoKaty/GIS-WS-21-22-Abgabe/tree/main/Typescript/Aufgabe3
+ * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/Typescript/Aufgabe3/events.html
 

@@ -20,7 +20,6 @@ var Aufgabe;
     let button = document.getElementById("enter");
     let localstoragearray = [];
     let localstoragestring;
-    console.log(localstoragearray);
     /*Array anlegen und mit Json im Local-Storage abspeichern */
     if (localStorage.length == 0) {
         //TODO: Event erschein nur nach clearen des Lokal Stores, nach reload nicht mehr in Tabelle
@@ -28,7 +27,6 @@ var Aufgabe;
         //let neuEvent: Eventis = new Eventis(interpret.value, preis.value, datum.value);
         let eventstring = JSON.stringify(standartevent);
         localStorage.setItem("myArray", eventstring);
-        console.log("Eventstring", eventstring);
         localstoragearray[0] = new Eventis("Mamamoo", "32.9", "21.08.2021");
         //localstoragearray.push(new Eventis("Mamamoo", "32.9", "21.08.2021"));
     }
@@ -52,8 +50,6 @@ var Aufgabe;
     /*localStorage.setItem("myArray", stringarray);*/
     /*local storage events abrufen */
     function update(storagearray) {
-        console.log("Array", storagearray);
-        console.log("Lenght", storagearray.length);
         //TODO: Lenght is undefine
         //console.log("Array",storagearray); lenght funktioniert nicht ist undefined
         if (storagearray != null && storagearray.length > 0) {
@@ -85,9 +81,7 @@ var Aufgabe;
         }
     }
     function aktualisierenListe(eventarry) {
-        console.log(1);
         if (eventarry.length > 0 && eventarry != null) {
-            console.log(2);
             /*wiederholungen verhindern */
             while (document.getElementById("table").lastChild != document.getElementById("wichtig")) {
                 document.getElementById("table").removeChild(document.getElementById("table").lastChild);
