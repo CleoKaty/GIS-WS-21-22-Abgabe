@@ -26,14 +26,15 @@ namespace Aufgabe {
 
         //Id Rückgabe - als String, da LocalStorage nur mit String arbeitet
         returnID (): string {
+            console.log("this.id", this.id);
             return this.id.toString();
-        }
-
-        
+        }   
     }
 
     /*Array anlegen und mit Json im Local-Storage abspeichern */
     let eventliste: Eventis[] = [];
+    //ID-Zaehler anlegen
+    
 
     // Storage für Events definieren
     class StoreEvent {
@@ -45,17 +46,15 @@ namespace Aufgabe {
         //Events abrufen
         static loadEvent(): void {
             let storageStringListe: string = localStorage.getItem("EventArray") || "[]";
-            //Wiedrholungen vermeiden
+            //Wiederholungen vermeiden
             while (table.lastChild != document.getElementById("wichtig")) {
                 table.removeChild(table.lastChild);
                 }
 
             for (let evt of JSON.parse(storageStringListe)) {
                 //let geladenesEvent: Eventis = new Eventis(evt.person, evt.preis, evt.datum, evt.id);
-                
-                //Zaehler für id
-                let zaehler: number = 0;
                 /*Elemente anlegen für Tabelleneinträge */
+                console.log("Buttonid/Zähler", evt.id); // ist der Zähler
                 let liste: HTMLElement = document.createElement("tr");
                 let a: HTMLElement = document.createElement("td");
                 let b: HTMLElement = document.createElement("td");
@@ -63,24 +62,23 @@ namespace Aufgabe {
                 let d: HTMLElement = document.createElement("td");
                 let deletebutton: HTMLElement = document.createElement("button");
                 deletebutton.innerText = "delete";
-                let buttonid: string = zaehler.toString();
+                let buttonid: string = evt.id.toString();
                 deletebutton.id = buttonid;
                 deletebutton.addEventListener("click", deleter);
 
                 /*delete-function */
-                function deleter (): void {
-                    //In Events-Array finden und löschen
-                    eventliste.forEach((event, index) => {
-                        if (event.returnID() == deletebutton.id) {
-                            eventliste.splice(index, 1);
-                        }
-                    });
-                
-                   
-                    //LocalStorage mithilfe von EventArray updaten
+                function deleter (evt: Event): void {
+                    console.log(evt);
+                    let idbutt: number = parseInt(deletebutton.id);
+
+                    eventliste = eventliste.filter(item => item.id !== idbutt);
+                    
+                    localStorage.clear();
                     StoreEvent.saveEvent();
-                    //aus Tabelle löschen
+                   
+                    
                     table.removeChild(liste);
+                   
                 }
 
                 //Anlegen in Liste
@@ -92,17 +90,12 @@ namespace Aufgabe {
                 liste.appendChild(a);
                 liste.appendChild(b);
                 liste.appendChild(c);
-                liste.appendChild(d);
-
-                zaehler++;
-
+                liste.appendChild(d);   
             }
         }
     }
     StoreEvent.loadEvent();
 
-    
-    
     /*Event-button definieren */
     button.addEventListener("click", () => { 
         if (interpret.value != "" && preiseingabe.value != "" && datum.value != "") {
@@ -110,13 +103,35 @@ namespace Aufgabe {
             preiseingabe.style.borderColor = "black";
             datum.style.borderColor = "black";
 
-            let neuEvent: Eventis = new Eventis(interpret.value, preiseingabe.value, datum.value, eventliste.length);
-            eventliste.push(neuEvent);
+
+            eventliste.length = 0;
+
+            //eventliste neu anlegen, mithilfe des storages, um wiederholungen zu vermeiden
+            if (eventliste === null || eventliste.length < 1) {
+               eventliste = JSON.parse(localStorage.getItem("EventArray"));
+               
+               if (eventliste === null || eventliste.length < 1) {
+                    let neuEvent: Eventis = new Eventis(interpret.value, preiseingabe.value, datum.value, 0);
+                    eventliste = [];
+                    eventliste[0] = neuEvent;
+                    
+               } else {
+                let neuEvent: Eventis = new Eventis(interpret.value, preiseingabe.value, datum.value, (eventliste[eventliste.length - 1].id + 1));
+                eventliste.push(neuEvent);
+                
+               }
+
+            } else {
+                let neuEvent: Eventis = new Eventis(interpret.value, preiseingabe.value, datum.value, (eventliste[eventliste.length - 1].id + 1));
+                eventliste.push(neuEvent);
+            }
+            
+        
+            
+            
             //event speichern und anlegen
             StoreEvent.saveEvent();
-            StoreEvent.loadEvent();
-
-            
+            StoreEvent.loadEvent(); 
         }
         else { 
             if (interpret.value == "") {
@@ -128,8 +143,6 @@ namespace Aufgabe {
             if (datum.value == "") {
                 datum.style.borderColor = "red";
             }
-        }
-       
+        } 
     });
-    
 }
