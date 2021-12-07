@@ -20,9 +20,9 @@ namespace Server {
                 response.write("Server erreichbar");
                 break;
             case "/convertDate":
-                let name: string = url.searchParams.get("name");
-                console.log(name);
-                response.write("Hallo mein Freund" + name + ", du."); //Wenn Server http://127.0.0.1:3000/greetings?name=Philipp -> Philipp wird übergeben
+                let date: string = url.searchParams.get("date");
+                console.log(date);
+                response.write(date); //Wenn Server http://127.0.0.1:3000/greetings?name=Philipp -> Philipp wird übergeben
                 break;
             default:
                 response.statusCode = 404; //STandartresponse, wenn der Pfad nicht gefunden wird

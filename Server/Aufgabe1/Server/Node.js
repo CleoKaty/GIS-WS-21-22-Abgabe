@@ -13,13 +13,16 @@ var Server;
         let url = new URL(request.url || "", `http://${request.headers.host}`); //Url element
         switch (url.pathname) { //Pfad wird gesucht
             case "/": //Startpunkt des Servers, Mutepfad
-                response.write("Hello World");
+                response.write("Server erreichbar");
                 break;
-            case "/greetings":
-                response.write("Hallo mein Freund");
+            case "/convertDate":
+                let date = url.searchParams.get("date");
+                console.log(date);
+                response.write(date); //Wenn Server http://127.0.0.1:3000/greetings?name=Philipp -> Philipp wird übergeben
                 break;
             default:
                 response.statusCode = 404; //STandartresponse, wenn der Pfad nicht gefunden wird
+                break;
         }
         response.end(); //Response wird abgeschickt
     });
@@ -28,4 +31,4 @@ var Server;
     });
 })(Server || (Server = {}));
 // in Terminal: node .Server/Aufgabe1/server.js
-//# sourceMappingURL=server.js.map
+//# sourceMappingURL=Node.js.map
