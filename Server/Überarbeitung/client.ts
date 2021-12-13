@@ -20,9 +20,8 @@ namespace Client {
     async function sendForm(): Promise<void> {
 
         //Vorbereiten der Formulardaten zum Sende-Prozess
-        let formData: FormData = new FormData(myForm);
-        let query: URLSearchParams = new URLSearchParams(<any>formData); 
-        let urlWithQuery: string = url + path + "?" + query.toString(); //Url schreiben
+        let datestring: string = JSON.stringify(date.value);
+        let urlWithQuery: string = url + path + "?date=" + datestring; //Url schreiben
         
 
         let response: Response = await fetch(urlWithQuery); 
@@ -31,6 +30,6 @@ namespace Client {
 
         let responsetext: HTMLElement = document.createElement("p");
         div.appendChild(responsetext);
-        responsetext.innerHTML = responseText;
+        responsetext.textContent = responseText;
     }
 }

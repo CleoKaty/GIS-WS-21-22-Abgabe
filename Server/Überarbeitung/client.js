@@ -15,15 +15,14 @@ var Client;
     console.log(myForm, sendButton);
     async function sendForm() {
         //Vorbereiten der Formulardaten zum Sende-Prozess
-        let formData = new FormData(myForm);
-        let query = new URLSearchParams(formData);
-        let urlWithQuery = url + path + "?" + query.toString(); //Url schreiben
+        let datestring = JSON.stringify(date.value);
+        let urlWithQuery = url + path + "?date=" + datestring; //Url schreiben
         let response = await fetch(urlWithQuery);
         let responseText = await response.text();
         console.log(responseText);
         let responsetext = document.createElement("p");
         div.appendChild(responsetext);
-        responsetext.innerHTML = responseText;
+        responsetext.textContent = responseText;
     }
 })(Client || (Client = {}));
 //# sourceMappingURL=client.js.map

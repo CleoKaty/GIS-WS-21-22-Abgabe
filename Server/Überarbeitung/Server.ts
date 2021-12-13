@@ -1,6 +1,5 @@
 import * as http from "http";
-import * as Url from "url";
-import { ParsedUrlQuery } from "querystring";
+
 
 namespace Server {
   const hostname: string = "127.0.0.1"; //localhost
@@ -12,6 +11,7 @@ namespace Server {
       response.statusCode = 200; 
 
       response.setHeader("Content-Type", "text/plain"); 
+
       response.setHeader("Access-Control-Allow-Origin", "*"); //erlaubt Zugriff
 
       let url: URL = new URL(request.url || "", `http://${request.headers.host}`);
@@ -21,9 +21,10 @@ namespace Server {
           console.log("Server erreichbar");
           break;
         case "/convertDate": //Datenpfad
-          let name: string = url.searchParams.get("date");
-          console.log(name); 
-          response.write("Hallo " + name + ", schoen dich zu sehen!"); 
+          let clientdate: string = url.searchParams.get("date");
+          console.log(clientdate);
+          let rueckgabeString: string = "Tag: " + clientdate.substring(9, 11) + " Monat: " + clientdate.substring(6, 8) + " Jahr: " + clientdate.substring(1, 5); 
+          response.end(rueckgabeString); 
           break;
         default:
           response.statusCode = 404; //Standartfehlermeldung

@@ -16,9 +16,10 @@ var Server;
                 console.log("Server erreichbar");
                 break;
             case "/convertDate": //Datenpfad
-                let name = url.searchParams.get("date");
-                console.log(name);
-                response.write("Hallo " + name + ", schoen dich zu sehen!");
+                let clientdate = url.searchParams.get("date");
+                console.log(clientdate);
+                let rueckgabeString = "Tag: " + clientdate.substring(9, 11) + " Monat: " + clientdate.substring(6, 8) + " Jahr: " + clientdate.substring(1, 5);
+                response.end(rueckgabeString);
                 break;
             default:
                 response.statusCode = 404; //Standartfehlermeldung
