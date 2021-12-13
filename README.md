@@ -39,6 +39,6 @@
 
  ### **6. Server **
 
- * Code: https://github.com/CleoKaty/GIS-WS-21-22-Abgabe/tree/main/Server/Abgabe1
- * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/Server/Abgabe1/convertDate.html
+ * Code: https://github.com/CleoKaty/GIS-WS-21-22-Abgabe/tree/main/Server/Überarbeitung
+ * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/Server/Überarbeitung/convertDate.html
 
