@@ -1,0 +1,76 @@
+@media (min-width: 45em) {
+    article {
+        float:inline-start;
+        width: 30%;
+      display: flex;
+    }
+  }
+  header .header{
+    font-family: 'Italianno', cursive;
+    font-size: 6em;
+    color: rgb(255, 255, 255);
+    background-image: url("Ressources/backgroundheader.webp");
+    background-attachment: fixed;
+    background-size: 20em;
+  }
+  .header2{
+    font-family: 'Italianno', cursive;
+    font-size: 4em;
+    color:  rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    margin: 0em;
+  }
+  button{
+    background-image: url("Ressources/button.jpg");
+    color: white;
+    size: 2em;
+  }
+  .header{
+    display: flex;
+    justify-content: center;
+    font-family: 'Italianno', cursive;
+    font-size: 3em;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 168, 162);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 25em;
+    }
+  #footerhinweis{
+    border: rgb(255, 255, 255);
+    color: white;
+    background-image: url("Ressources/hinweis.jpg");
+    background-size: 65vw;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1em;
+    padding-bottom: 5em;
+    margin: 5em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+
+  }
+  body{
+      background-color: rgb(174, 245, 245);
+  }
+  nav div{
+    position: sticky;
+    top:0;
+    display: flex;
+    justify-content: right;
+    border: 15px solid white;
+    background-color: rgb(0, 168, 162);
+    width: 300px;
+    padding: 50px;
+    margin: 20px;
+    transition: background-colour 1s;
+    transition: border 1s;
+  }
+  nav div:hover{
+      background: white;
+      color: rgb(0, 168, 162);
+      border: rgb(0, 168, 162);
+  }
