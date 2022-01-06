@@ -1,3 +1,5 @@
+
+
 namespace Client {
     const url: string = "http://127.0.0.1:3000"; //URL
     const path: string = "/concertEvents";
@@ -7,6 +9,12 @@ namespace Client {
         interpret: string;
         preis: number;
         datum: string;
+    }
+
+    async function requestTextWithGET(url: RequestInfo): Promise<string> {
+        let response: Response = await fetch(url);
+        let text: string = await response.text();
+        return text;
     }
 
 
@@ -22,7 +30,7 @@ namespace Client {
         url: RequestInfo,
         jsonString: string
     ): Promise<void> {
-        let response: Response = await fetch(url, {
+        await fetch(url, {
             method: "post",
             body: jsonString
         });
@@ -68,9 +76,9 @@ namespace Client {
         return JSON.parse(text) as Concert[];
     }
 
-    async function displayConcerts(table: HTMLTableElement) {
+    async function displayConcerts(): Promise<void> {
         let concerts: Concert[] = await requestConcert();
-        let tbody: HTMLElement = <HTMLElement>table.querySelector("tbody");
+        let tbody: HTMLTableElement = <HTMLTableElement> document.getElementById("table");
         removeChildren(tbody);
         for (let concert of concerts) {
             let tr: HTMLTableRowElement = document.createElement("tr");
@@ -87,7 +95,7 @@ namespace Client {
             tbody.appendChild(tr);
         }
     }
-    function removeChildren(element: HTMLElement) {
+    function removeChildren(element: HTMLElement): void {
         while (element.firstChild) {
             element.removeChild(element.firstChild);
         }

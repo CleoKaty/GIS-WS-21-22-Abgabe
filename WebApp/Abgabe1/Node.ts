@@ -11,7 +11,7 @@ async function dbFind(
   collection: string,
   requestObject: any,
   response: http.ServerResponse
-) {
+): Promise<void> {
   let result = await mongoClient
     .db(db)
     .collection(collection)
@@ -27,7 +27,7 @@ async function dbAddOrEdit(
   db: string,
   collection: string,
   request: http.IncomingMessage
-) {
+): Promise<void>  {
   let jsonString: string = "";
   request.on("data", data => {
     jsonString += data;

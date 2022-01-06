@@ -24,7 +24,11 @@
   button{
     background-image: url("Ressources/button.jpg");
     color: white;
-    size: 2em;
+    display: flex;
+    justify-content: center;
+    size: 8em;
+    tab-size: 6em;
+    font-family: 'Times New Roman', Times, serif;
   }
   .header{
     display: flex;
@@ -74,3 +78,34 @@
       color: rgb(0, 168, 162);
       border: rgb(0, 168, 162);
   }
+  #produktliste{
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    margin: 2em;
+    color: rgb(0, 168, 162);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2em;
+  }
+label{
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  margin: 2em;
+  color: rgb(0, 168, 162);
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.5em;
+}
+.change{
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    margin: 2em;
+    color: rgb(0, 168, 162);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.0em;
+}
+input{
+  display: flex;
+  justify-content: center;
+}
