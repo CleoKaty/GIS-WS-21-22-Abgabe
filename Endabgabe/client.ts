@@ -49,25 +49,40 @@ namespace Client {
         dueDate: Date;
     }
 
-    let allProducts: Product = Product[];
+    let allProducts: Product[];
 
 
     let form1: HTMLFormElement = <HTMLFormElement>document.getElementById("form1") as HTMLFormElement;
     let form2: HTMLInputElement = <HTMLInputElement>document.getElementById("form2") as HTMLInputElement;
 
-    form1.addEventListener("submit", submitProduct);
+    form2.addEventListener("submit", submitProduct);
 
     async function submitProduct(event: Event) {
         event.preventDefault();
+        let formDaten1: FormData = new FormData(<HTMLFormElement>event.currentTarget);
+        if (form1..value != "" && preis.value != "" && datum.value != "") {
+                    interpret.style.borderColor = "black";
+                    preis.style.borderColor = "black";
+                    datum.style.borderColor = "black";
 
+                    
+                    let neuesProdukt: Product = {
+                      name: formDaten1.get("names"),
+                      dates.arriveDate: formDaten1.get("firstName"),
+                      lastName: formData.get("lastName"),
+                      semester: formData.get("semester"),
+                    };
+                    console.log(neuesProdukt);
+                    await fetch("http://localhost:3000/student", {
+                      method: "post",
+                      body: JSON.stringify(neuesProdukt),
+                    });
+                  }
     }
 
 
     button.addEventListener("click", () => {
-        if (interpret.value != "" && preis.value != "" && datum.value != "") {
-            interpret.style.borderColor = "black";
-            preis.style.borderColor = "black";
-            datum.style.borderColor = "black";
+        
             let liste: HTMLElement = document.createElement("tr");
             let a: HTMLElement = document.createElement("td");
             let b: HTMLElement = document.createElement("td");

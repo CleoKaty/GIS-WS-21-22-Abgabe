@@ -1,5 +1,4 @@
 
-
 namespace Client {
     const url: string = "http://127.0.0.1:3000"; //URL
     const path: string = "/concertEvents";
@@ -16,6 +15,8 @@ namespace Client {
         let text: string = await response.text();
         return text;
     }
+
+    displayConcerts();
 
 
     let interpret: HTMLInputElement = <HTMLInputElement>document.getElementById("interpret") as HTMLInputElement;
