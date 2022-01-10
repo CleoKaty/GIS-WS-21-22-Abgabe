@@ -48,5 +48,6 @@
 
  * Code: https://github.com/CleoKaty/GIS-WS-21-22-Abgabe/tree/main/WebApp/Abgabe1
  * GitHub Pages: https://cleokaty.github.io/GIS-WS-21-22-Abgabe/WebApp/Abgabe1/index.html
+ Manchmal funktioniert es, manchmal nicht :(
 
 
