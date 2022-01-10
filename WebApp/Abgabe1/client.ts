@@ -15,7 +15,7 @@ namespace Client {
         let text: string = await response.text();
         return text;
     }
-
+    requestTextWithGET(url + path);
     displayConcerts();
 
 

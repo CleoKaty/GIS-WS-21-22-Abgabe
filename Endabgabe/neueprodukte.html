@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Montserrat:wght@200&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Montserrat:wght@200&display=swap" rel="stylesheet">
+    <script src="client.js" defer></script>
 </head>
 
 <body>
@@ -45,17 +45,17 @@
                     <label for="subtract">Wegnehmen</label><br>
                 </div>
                 <br>
-                    <label for="mengenangabe">Menge</label>
-                    <input type="number" id="mengenangabe" name="mengenangabe">
+                    <label for="mengenangabe">Menge*</label>
+                    <input type="number" id="mengenangabe1" name="mengenangabe1">
                 
                 <br>
 
-                <label for="ablaufen">Ablaufdatum</label>
-                <input type="date" id="ablaufen" name="ablaufen">
+                <label for="ablaufen">Ablaufdatum*</label>
+                <input type="date" id="ablaufen1" name="ablaufen1">
                 <br>
 
                 <label for="notiz">Notizen</label>
-                <input type="text" name="notiz" id="notiz">
+                <input type="text" name="notiz1" id="notiz1">
                 <br>
 
                 <button type="submit" id="form1button">Produktmenge ändern</button>
@@ -64,16 +64,19 @@
         <div>
             <form id="form2">
                 <h3 class="header">Neues Produkt anlegen</h3>
-                <label for="names">Name des Produkts</label>
+                <label for="names">Name des Produkts*</label>
                 <input type="text" name="names" id="names">
+                <p id="info1"></p>
                 <br>
-
-                <label for="mengenangabe">Menge</label>
+                
+                <label for="mengenangabe">Menge*</label>
                 <input type="number" id="mengenangabe" name="mengenangabe">
+                <p id="info2"></p>
                 <br>
 
-                <label for="ablaufen">Ablaufdatum</label>
+                <label for="ablaufen">Ablaufdatum*</label>
                 <input type="date" id="ablaufen" name="ablaufen">
+                <p id="info3"></p>
                 <br>
 
                 <label for="notiz">Notizen</label>
