@@ -70,8 +70,8 @@ var Client;
         }
     }
     function removeChildren(element) {
-        while (element.firstChild) {
-            element.removeChild(element.firstChild);
+        while (element.lastChild != document.getElementById("wichtig")) {
+            element.removeChild(element.lastChild);
         }
     }
 })(Client || (Client = {}));

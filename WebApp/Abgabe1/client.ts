@@ -99,8 +99,8 @@ namespace Client {
         }
     }
     function removeChildren(element: HTMLElement): void {
-        while (element.firstChild) {
-            element.removeChild(element.firstChild);
+        while (element.lastChild != document.getElementById("wichtig")) {
+            element.removeChild(element.lastChild);
         }
     }
 
