@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const http = require("http");
 const mongo = require("mongodb"); //arbeiten mit Mongodb als speicher
+///////////////////////////////////////////////////////////////SERVER/////////////////////////////////////////////////////////////////////
 const hostName = "127.0.0.1"; // für local host
 const port = 3000;
-const mongoUrl = "mongodb://127.0.0.1:27017"; //damit mongoDb lokal genutzt werden kann
+const mongoUrl = "mongodb://localhost:27017"; //damit mongoDb lokal genutzt werden kann
 let mongoCLient = new mongo.MongoClient(mongoUrl); //neuen CLient mit url
 //Server
 const server = http.createServer(async (request, response) => {

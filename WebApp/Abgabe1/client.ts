@@ -3,6 +3,7 @@ namespace Client {
     const url: string = "http://127.0.0.1:3000"; //URL
     const path: string = "/concertEvents";
 
+
     interface Concert {
         _id?: string;
         interpret: string;
@@ -47,9 +48,9 @@ namespace Client {
             sendJSONStringWithPOST(
                 "http://localhost:3000/concertEvents",
                 JSON.stringify({
-                    Interpret: interpret.value,
-                    Preis: preis.value,
-                    Datum: datum.value
+                    interpret: interpret.value,
+                    preis: preis.value,
+                    datum: datum.value
 
                 })
             );
@@ -66,6 +67,7 @@ namespace Client {
                 datum.style.borderColor = "red";
             }
         }
+        displayConcerts();
 
     });
 
@@ -92,8 +94,8 @@ namespace Client {
                 let td: HTMLElement = document.createElement("td");
                 td.textContent = `${info}`;
                 tr.appendChild(td);
-            }
-            tbody.appendChild(tr);
+                tbody.appendChild(tr);
+            }       
         }
     }
     function removeChildren(element: HTMLElement): void {

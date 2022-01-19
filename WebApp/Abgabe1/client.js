@@ -27,9 +27,9 @@ var Client;
             preis.style.borderColor = "black";
             datum.style.borderColor = "black";
             sendJSONStringWithPOST("http://localhost:3000/concertEvents", JSON.stringify({
-                Interpret: interpret.value,
-                Preis: preis.value,
-                Datum: datum.value
+                interpret: interpret.value,
+                preis: preis.value,
+                datum: datum.value
             }));
         }
         else {
@@ -43,6 +43,7 @@ var Client;
                 datum.style.borderColor = "red";
             }
         }
+        displayConcerts();
     });
     async function requestConcert() {
         let response = await fetch(`http://localhost:3000/concertEvents?concerts`);
@@ -64,8 +65,8 @@ var Client;
                 let td = document.createElement("td");
                 td.textContent = `${info}`;
                 tr.appendChild(td);
+                tbody.appendChild(tr);
             }
-            tbody.appendChild(tr);
         }
     }
     function removeChildren(element) {

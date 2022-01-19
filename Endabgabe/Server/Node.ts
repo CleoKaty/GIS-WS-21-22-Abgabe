@@ -1,9 +1,11 @@
 import * as http from "http";
 import * as mongo from "mongodb";  //arbeiten mit Mongodb als speicher
 
+///////////////////////////////////////////////////////////////SERVER/////////////////////////////////////////////////////////////////////
+
 const hostName: string = "127.0.0.1"; // für local host
 const port: number = 3000;            
-const mongoUrl: string = "mongodb://127.0.0.1:27017"; //damit mongoDb lokal genutzt werden kann
+const mongoUrl: string = "mongodb://localhost:27017"; //damit mongoDb lokal genutzt werden kann
 let mongoCLient: mongo.MongoClient = new mongo.MongoClient(mongoUrl); //neuen CLient mit url
 
 //Server

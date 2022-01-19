@@ -1,42 +1,44 @@
-namespace ClientNeueProdukte {
+"use strict";
+var ClientNeueProdukte;
+(function (ClientNeueProdukte) {
     //heutiges Datum
-    let nowDate: Date = new Date();
+    let nowDate = new Date();
     //Product anlegen
     class Product {
-        name: string = "";
-        dates: ProductDates[] = [];
-        overallPieces: number = 0;
-        notice: string[] = [];
-
-        constructor(name: string, dates: ProductDates[], overallPieces: number, notice: string[]) {
+        name = "";
+        dates = [];
+        overallPieces = 0;
+        notice = [];
+        constructor(name, dates, overallPieces, notice) {
             this.name = name;
             this.dates = dates;
             this.overallPieces = overallPieces;
             this.notice = notice;
         }
         //Mengenanzahl feststellen
-        countAllPieces(): number {
-            let count: number = 0;
-            for (let i: number = 0; i < this.dates.length; i++) {
+        countAllPieces() {
+            let count = 0;
+            for (let i = 0; i < this.dates.length; i++) {
                 count = this.dates[i].pieces + count;
-
             }
             return count;
         }
         //(nicht) Abgelaufene Produktmenge feststellen 
-        countAllBadPieces(bad: boolean): number {
-            let countBad: number = 0;
-            let countGood: number = 0;
-
+        countAllBadPieces(bad) {
+            let countBad = 0;
+            let countGood = 0;
             //Daten vergleichen
-            for (let i: number = 0; i < this.dates.length; i++) {
+            for (let i = 0; i < this.dates.length; i++) {
                 if (this.dates[i].dueDate.getFullYear() <= nowDate.getFullYear()) {
                     countBad = this.dates[i].pieces + countBad;
-                } else if (this.dates[i].dueDate.getMonth() <= nowDate.getMonth()) {
+                }
+                else if (this.dates[i].dueDate.getMonth() <= nowDate.getMonth()) {
                     countBad = this.dates[i].pieces + countBad;
-                } else if (this.dates[i].dueDate.getDay() <= nowDate.getDate()) {
+                }
+                else if (this.dates[i].dueDate.getDay() <= nowDate.getDate()) {
                     countBad = this.dates[i].pieces + countBad;
-                } else {
+                }
+                else {
                     countGood = this.dates[i].pieces + countGood;
                 }
             }
@@ -46,68 +48,55 @@ namespace ClientNeueProdukte {
             else {
                 if (this.countAllPieces() - countBad === countGood) {
                     return countGood;
-                } else {
+                }
+                else {
                     //Überprüfen Daten
                     console.log("Error");
                     return 0;
                 }
             }
         }
-
-    }
-    //Daten für Produkt anlegen
-    interface ProductDates {
-        arriveDate: Date;
-        pieces: number;
-        dueDate: Date;
     }
     //Alle Produkte zum Überblick
-    let allProducts: Product[] = [];
+    let allProducts = [];
     updateArray();
     console.log(allProducts);
-    async function updateArray(): Promise<void> {
-        let fetchedProductArray: Product[] = await getAllProducts(); //? funktioniert nur in async function
+    async function updateArray() {
+        let fetchedProductArray = await getAllProducts(); //? funktioniert nur in async function
         allProducts = fetchedProductArray;
     }
-
     /////////////////////////////////////////////Elemente aus HTML abgreifen//////////////////////////////////////////////////////////////////
-
     //Formelemente abgreifen
-    let form1: HTMLFormElement = <HTMLFormElement>document.getElementById("form1") as HTMLFormElement;
-    let form2: HTMLFormElement = <HTMLFormElement>document.getElementById("form2") as HTMLFormElement;
+    let form1 = document.getElementById("form1");
+    let form2 = document.getElementById("form2");
     //Elemente abgreifen
-    let input1: HTMLInputElement = <HTMLInputElement>document.getElementById("ablaufen") as HTMLInputElement;
-    let input2: HTMLInputElement = <HTMLInputElement>document.getElementById("mengenangabe") as HTMLInputElement;
-    let input3: HTMLInputElement = <HTMLInputElement>document.getElementById("names") as HTMLInputElement;
-    let input4: HTMLInputElement = <HTMLInputElement>document.getElementById("listprodukte") as HTMLInputElement;
-    let input5: HTMLInputElement = <HTMLInputElement>document.getElementById("mengenangabe1") as HTMLInputElement; //warntext7
-    let input6: HTMLInputElement = <HTMLInputElement>document.getElementById("ablaufen1") as HTMLInputElement;
-    let warntext1: HTMLElement = document.getElementById("info1") as HTMLElement;
-    let warntext2: HTMLElement = document.getElementById("info2") as HTMLElement;
-    let warntext3: HTMLElement = document.getElementById("info3") as HTMLElement;
-    let warntext4: HTMLElement = document.getElementById("info4") as HTMLElement;
-    let warntext5: HTMLElement = document.getElementById("info5") as HTMLElement;
-    let warntext6: HTMLElement = document.getElementById("info6") as HTMLElement;
-    let warntext7: HTMLElement = document.getElementById("info7") as HTMLElement;
-    let warntext8: HTMLElement = document.getElementById("info8") as HTMLElement;
-    let warntext9: HTMLElement = document.getElementById("info9") as HTMLElement;
-
+    let input1 = document.getElementById("ablaufen");
+    let input2 = document.getElementById("mengenangabe");
+    let input3 = document.getElementById("names");
+    let input4 = document.getElementById("listprodukte");
+    let input5 = document.getElementById("mengenangabe1"); //warntext7
+    let input6 = document.getElementById("ablaufen1");
+    let warntext1 = document.getElementById("info1");
+    let warntext2 = document.getElementById("info2");
+    let warntext3 = document.getElementById("info3");
+    let warntext4 = document.getElementById("info4");
+    let warntext5 = document.getElementById("info5");
+    let warntext6 = document.getElementById("info6");
+    let warntext7 = document.getElementById("info7");
+    let warntext8 = document.getElementById("info8");
+    let warntext9 = document.getElementById("info9");
     ///////////////////////////////////////////////////////////Seite aufbauen/////////////////////////////////////////////////////////////////
-
-    for (let i: number = 0; i < allProducts.length; i++) {
-        let option: HTMLElement = document.createElement("option");
+    for (let i = 0; i < allProducts.length; i++) {
+        let option = document.createElement("option");
         option.setAttribute("value", allProducts[i].name);
         input4.appendChild(option);
     }
     ///////////////////////////////////////////////////////Produkte verändern/////////////////////////////////////////////////////////////////
-
     form1.addEventListener("submit", changeProduct);
-
     form2.addEventListener("submit", submitProduct);
-
-    async function changeProduct(event: Event): Promise<void> {
+    async function changeProduct(event) {
         event.preventDefault();
-        let formDaten1: FormData = new FormData(<HTMLFormElement>event.currentTarget);
+        let formDaten1 = new FormData(event.currentTarget);
         if (formDaten1.get("ablaufen1") != "" && formDaten1.get("listprodukte") != "" && formDaten1.get("mengenangabe1") != "" && formDaten1.get("change") != "") {
             input4.style.borderColor = "blue";
             input5.style.borderColor = "blue";
@@ -116,19 +105,18 @@ namespace ClientNeueProdukte {
             warntext6.textContent = "";
             warntext7.textContent = "";
             warntext8.textContent = "";
-
-            let product: string = formDaten1.get("listprodukte") as string;
+            let product = formDaten1.get("listprodukte");
             //Hinzufügen
             if (formDaten1.get("change") == "add") {
                 console.log("add");
-                let platzierung: number = searchInArray(product);
+                let platzierung = searchInArray(product);
                 if (platzierung !== null) {
                     warntext9.textContent = "Produkt wurde hinzugefügt";
                     warntext9.style.color = "blue";
                     console.log(allProducts);
                     //Daten für  Produkt definieren
-                    let dueDateString: string = formDaten1.get("ablaufen1") as string;
-                    let neuDate: ProductDates = {
+                    let dueDateString = formDaten1.get("ablaufen1");
+                    let neuDate = {
                         pieces: Number(formDaten1.get("mengenangabe1")),
                         arriveDate: nowDate,
                         dueDate: nowDate = new Date(dueDateString)
@@ -141,17 +129,17 @@ namespace ClientNeueProdukte {
                 }
             }
             else if (formDaten1.get("change") == "subtract") { //Wegnehmen
-                let platzierung: number = searchInArray(product);
-                let subtractpieces: number = Number(formDaten1.get("mengenangabe1"));
-                allProducts[platzierung].dates.sort((a: ProductDates, b: ProductDates) => { //Array nach datum sortieren (ältestes Produkt raus)
-                    return b.dueDate.getTime() - a.dueDate.getTime();         //evtl a und b tauschen
+                let platzierung = searchInArray(product);
+                let subtractpieces = Number(formDaten1.get("mengenangabe1"));
+                allProducts[platzierung].dates.sort((a, b) => {
+                    return b.dueDate.getTime() - a.dueDate.getTime(); //evtl a und b tauschen
                 });
-                if (subtractpieces > allProducts[platzierung].countAllBadPieces(false)) {   //Mengenangabe überprüfen; zu groß?
+                if (subtractpieces > allProducts[platzierung].countAllBadPieces(false)) { //Mengenangabe überprüfen; zu groß?
                     warntext9.textContent = "";
-                    for (let i: number = 0; i < allProducts[platzierung].dates.length; i++) {
+                    for (let i = 0; i < allProducts[platzierung].dates.length; i++) {
                         if (allProducts[platzierung].dates[i].dueDate <= nowDate) {
                             if (subtractpieces != 0) {
-                                if (allProducts[platzierung].dates[i].pieces <= subtractpieces) {  //durch Dates mengen durcharbeiten
+                                if (allProducts[platzierung].dates[i].pieces <= subtractpieces) { //durch Dates mengen durcharbeiten
                                     subtractpieces -= allProducts[platzierung].dates[i].pieces;
                                     allProducts[platzierung].dates.splice(platzierung, 1);
                                 }
@@ -164,9 +152,7 @@ namespace ClientNeueProdukte {
                                 break;
                             }
                         }
-
                     }
-
                 }
                 else {
                     warntext9.textContent = `Es gibt dafür zu wenig bereits vorhandene Produkte. Insgesamt gibt es ${allProducts[platzierung].countAllBadPieces(false)} Stücke.`;
@@ -177,9 +163,9 @@ namespace ClientNeueProdukte {
                 method: "post",
                 body: JSON.stringify(allProducts)
             });
-        } else {
+        }
+        else {
             //Hinweis bei Ausgefüllten Feldern
-
             if (input4.value == "") {
                 input4.style.borderColor = "red";
                 warntext5.textContent = "Bitte füllen Sie dieses Feld aus!";
@@ -197,7 +183,6 @@ namespace ClientNeueProdukte {
             else {
                 input5.style.borderColor = "blue";
                 warntext7.textContent = "";
-
             }
             if (input6.value == "") {
                 input6.style.borderColor = "red";
@@ -217,15 +202,12 @@ namespace ClientNeueProdukte {
             }
         }
     }
-
-
     ///////////////////////////////////////////////////////Produkt hinzufügen///////////////////////////////////////////////////////////////
-
-    async function submitProduct(event: Event): Promise<void> {
+    async function submitProduct(event) {
         //überprüfen
         console.log("submitform2");
         event.preventDefault();
-        let formDaten2: FormData = new FormData(<HTMLFormElement>event.currentTarget);
+        let formDaten2 = new FormData(event.currentTarget);
         if (formDaten2.get("ablaufen") != "" && formDaten2.get("names") != "" && formDaten2.get("mengenangabe") != "") {
             input1.style.borderColor = "blue";
             input2.style.borderColor = "blue";
@@ -233,32 +215,24 @@ namespace ClientNeueProdukte {
             warntext1.textContent = "";
             warntext2.textContent = "";
             warntext3.textContent = "";
-
             if (searchInArray(formDaten2.get("names").toString()) == null) {
                 warntext4.textContent = "";
                 //Daten für neues Produkt definieren
-                let dueDateString: string = formDaten2.get("ablaufen") as string;
-                let neuDate: ProductDates = {
+                let dueDateString = formDaten2.get("ablaufen");
+                let neuDate = {
                     pieces: Number(formDaten2.get("mengenangabe")),
                     arriveDate: nowDate,
                     dueDate: nowDate = new Date(dueDateString)
                 };
                 //Überprüfen Einträge
                 console.log(neuDate);
-
-
-                let neuesProdukt: Product = new Product(formDaten2.get("names") as string, [neuDate], 0, [formDaten2.get("notiz") as string]);
+                let neuesProdukt = new Product(formDaten2.get("names"), [neuDate], 0, [formDaten2.get("notiz")]);
                 neuesProdukt.overallPieces = neuesProdukt.countAllPieces();
-
                 //Überprüfen Einträge
                 console.log(neuesProdukt);
                 allProducts.push(neuesProdukt);
-
                 //Alphabetisch sortieren
-                allProducts.sort((a, b) =>
-                    a.name.localeCompare(b.name)
-                );
-
+                allProducts.sort((a, b) => a.name.localeCompare(b.name));
                 await fetch("http://127.0.0.1:3000/allProducts", {
                     method: "post",
                     body: JSON.stringify(allProducts)
@@ -268,9 +242,9 @@ namespace ClientNeueProdukte {
                 warntext4.textContent = "Dieses Produkt existiert bereits. Bitte fügen Sie es bei *Bereits existierende Produktmengen verändern* hinzu.";
                 warntext4.style.color = "red";
             }
-        } else {
+        }
+        else {
             //Hinweis bei Ausgefüllten Feldern
-
             if (input1.value == "") {
                 input1.style.borderColor = "red";
                 warntext3.textContent = "Bitte füllen Sie dieses Feld aus!";
@@ -288,7 +262,6 @@ namespace ClientNeueProdukte {
             else {
                 input2.style.borderColor = "blue";
                 warntext2.textContent = "";
-
             }
             if (input3.value == "") {
                 input3.style.borderColor = "red";
@@ -301,11 +274,10 @@ namespace ClientNeueProdukte {
             }
         }
     }
-
-    function searchInArray(name: string): number {
-        let index: number;
-        let nope: number = 0;
-        for (let i: number = 0; i < allProducts.length; i++) {
+    function searchInArray(name) {
+        let index;
+        let nope = 0;
+        for (let i = 0; i < allProducts.length; i++) {
             if (name == allProducts[i].name) {
                 index = i;
                 break;
@@ -321,31 +293,25 @@ namespace ClientNeueProdukte {
             return index;
         }
     }
-
     ////////////////////////////////////////////////andere Funktionen/////////////////////////////////////////////////////////////////////////
-
-
-    async function postJsonString(url: RequestInfo, jsonString: string): Promise<void> {
-        let response: Response = await fetch(url, {
+    async function postJsonString(url, jsonString) {
+        let response = await fetch(url, {
             method: "post",
             body: jsonString
         });
         console.log(response);
     }
     //ein gewünschtes Produkt bekommen für Einzelansicht
-    async function getOneProduct(name: string): Promise<Product> {
-        let response: Response = await fetch(`http://localhost:3000/singleProduct?name=${name}`);
-        let responseText: string = await response.text();
-        return JSON.parse(responseText) as Product;
+    async function getOneProduct(name) {
+        let response = await fetch(`http://localhost:3000/singleProduct?name=${name}`);
+        let responseText = await response.text();
+        return JSON.parse(responseText);
     }
     //ganze Liste von Produkten bekommen
-    async function getAllProducts(): Promise<Product[]> {
-        let response: Response = await fetch("http://127.0.0.1:3000/allProducts");
-        let responseText: string = await response.text();
-        return JSON.parse(responseText) as Product[];
+    async function getAllProducts() {
+        let response = await fetch("http://127.0.0.1:3000/allProducts");
+        let responseText = await response.text();
+        return JSON.parse(responseText);
     }
-
-}
-
-
-
+})(ClientNeueProdukte || (ClientNeueProdukte = {}));
+//# sourceMappingURL=clientNeueProdukte.js.map
