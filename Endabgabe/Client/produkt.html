@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="keywords" content="HTML" />
-    <meta name="description" content="a website about the azores" />
+    <meta name="description" content="Kuelibert; Paket1" />
     <meta name="author" content="Jana Franke" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produkt</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Montserrat:wght@200&display=swap"
@@ -18,41 +18,43 @@
 
 <body>
     <header>
-        <h1 id="kopf"></h1>
+        <h1 id="kopf" class="header"></h1>
     </header>
     <nav>
         <div>
-            <ul>
-                <li><a class="seitenlink" href="index.html">Dein Gefrierschrank</a></li>
-                <li><a class="seitenlink" href="neueprodukte.html">Neue Produkte hinzufügen</a></li>
-                <li><a class="seitenlink" href="produkteverwalten.html">Leere Produkte verwalten</a></li>
-            </ul>
+            <a class="seitenlink" href="index.html"> Dein Gefrierschrank </a>
+            <a class="seitenlink" href="neueprodukte.html"> Neue Produkte hinzufügen </a>
+            <a class="seitenlink" href="produkteverwalten.html"> Leere Produkte verwalten </a>
         </div>
     </nav>
     <main>
         <div>
             <h6 class="header2">Anzahl</h6>
             <div id="anzahl">
-                <p id ="p1"></p>
+                <p id="p1"></p>
                 <P id="p2"></P>
                 <nav>
-                    <a class="seitenlink" href="neueprodukte.html">Produktmenge verändern</a></li>
+                    <a href="neueprodukte.html">Produktmenge verändern</a></li>
                 </nav>
             </div>
             <h6 class="header2">Ablaufdaten</h6>
             <ul id="ablaufdaten">
             </ul>
-            <div id ="notizDiv">
-                <h6 class="header2">Notizen</h6>
-                <ol id="notizen">
-                </ol>
+            <h6 class="header2">Notizen</h6>
+            <ol id="notizen">
+            </ol>
+            <div id="notizDiv">
             </div>
         </div>
     </main>
     <footer>
-        <nav>
-            <a id="zurueck" href='#oben'>Zurück nach Oben</a>
-        </nav>
+        <div id="footer">
+            <input type="text" id="neuName">
+            <button id="nameChange">Name ändern</button>
+            <nav>
+                <a id="zurueck" href='#oben'>Zurück nach Oben</a>
+            </nav>
+        </div>
     </footer>
 </body>
 

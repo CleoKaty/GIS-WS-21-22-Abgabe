@@ -2,13 +2,14 @@
 <html lang="de">
 
 <head>
+
     <meta charset="utf-8" />
     <meta name="keywords" content="HTML" />
-    <meta name="description" content="a website about the azores" />
+    <meta name="description" content="Kuelibert; Paket1" />
     <meta name="author" content="Jana Franke" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neue Produkte</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Montserrat:wght@200&display=swap" rel="stylesheet">
@@ -21,20 +22,19 @@
     </header>
     <nav>
         <div>
-            <ul>
-                <li><a class="seitenlink" href="index.html">Dein Gefrierschrank</a></li>
-                <li><a class="seitenlink" href="neueprodukte.html">Neue Produkte hinzufügen</a></li>
-                <li><a class="seitenlink" href="produkteverwalten.html">Leere Produkte verwalten</a></li>
-            </ul>
+            <a class="seitenlink" href="index.html"> Dein Gefrierschrank </a>
+            <a class="seitenlinkGewaehlt" href="neueprodukte.html"> Neue Produkte hinzufügen </a>
+            <a class="seitenlink" href="produkteverwalten.html"> Leere Produkte verwalten </a>
         </div>
     </nav>
     <main>
-        <div>
+        <h3 class="header">Bereits existierende Produktmengen verändern</h3>
+        <div class="centre">
             <form id="form1">
-                <h3 class="header">Bereits existierende Produktmengen verändern</h3>
+                
                 <label for="labellistprodukte">Bereits existierende Produkte</label>
                 <input list="listprodukte" name="listprodukte" id="listprodukte">
-                <datalist id="listprodukte">
+                <datalist id="listproduktedata">
                 </datalist>
                 <p id="info5"></p>
                 <br>
@@ -66,9 +66,10 @@
                 <p id="info9"></p>
             </form>
         </div>
-        <div>
+        <h3 class="header">Neues Produkt anlegen</h3>
+        <div class="centre">
             <form id="form2">
-                <h3 class="header">Neues Produkt anlegen</h3>
+                
                 <label for="names">Name des Produkts*</label>
                 <input type="text" name="names" id="names">
                 <p id="info1"></p>
@@ -95,9 +96,9 @@
     </main>
     <footer>
         <div id="footerhinweis">
-            <h5 id="hinweis" class="header2">Hinweis</h5>
+            <h5 id="hinweis" class="header3">Hinweis</h5>
             <br>
-            <p>Beim Wegnehmen von Produkten werden automatisch Produkte gewählt, die als erstes ablaufen. <br>
+            <p id="texthinweis">Beim Wegnehmen von Produkten werden automatisch Produkte gewählt, die als erstes ablaufen.
                 Bereits abgelaufene Produkte können nicht mehr verwendet werden. Sie können unter
                 <a class="link" href="produkteverwalten.html">Produkte verwalten</a> entsorgt werden.
                 Bitte benutzen Sie die Produkte, bevor sie ablaufen!

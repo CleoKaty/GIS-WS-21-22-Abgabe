@@ -1,4 +1,5 @@
 "use strict";
+const url = "127.0.0.1"; //url
 var ClientNeueProdukte;
 (function (ClientNeueProdukte) {
     //heutiges Datum
@@ -9,6 +10,7 @@ var ClientNeueProdukte;
         dates = [];
         overallPieces = 0;
         notice = [];
+        _id;
         constructor(name, dates, overallPieces, notice) {
             this.name = name;
             this.dates = dates;
@@ -61,10 +63,7 @@ var ClientNeueProdukte;
     let allProducts = [];
     updateArray();
     console.log(allProducts);
-    async function updateArray() {
-        let fetchedProductArray = await getAllProducts(); //? funktioniert nur in async function
-        allProducts = fetchedProductArray;
-    }
+    options();
     /////////////////////////////////////////////Elemente aus HTML abgreifen//////////////////////////////////////////////////////////////////
     //Formelemente abgreifen
     let form1 = document.getElementById("form1");
@@ -86,128 +85,166 @@ var ClientNeueProdukte;
     let warntext8 = document.getElementById("info8");
     let warntext9 = document.getElementById("info9");
     ///////////////////////////////////////////////////////////Seite aufbauen/////////////////////////////////////////////////////////////////
-    for (let i = 0; i < allProducts.length; i++) {
-        let option = document.createElement("option");
-        option.setAttribute("value", allProducts[i].name);
-        input4.appendChild(option);
+    async function options() {
+        let datalist = document.getElementById("listproduktedata");
+        removeHTMLChildren(datalist);
+        console.log("data");
+        let array = await getAllProducts();
+        for (let i = 0; i < array.length; i++) {
+            let option = document.createElement("option");
+            option.value = array[i].name;
+            option.textContent = array[i].name;
+            datalist.appendChild(option);
+        }
     }
     ///////////////////////////////////////////////////////Produkte verändern/////////////////////////////////////////////////////////////////
     form1.addEventListener("submit", changeProduct);
     form2.addEventListener("submit", submitProduct);
     async function changeProduct(event) {
         event.preventDefault();
-        let formDaten1 = new FormData(event.currentTarget);
-        if (formDaten1.get("ablaufen1") != "" && formDaten1.get("listprodukte") != "" && formDaten1.get("mengenangabe1") != "" && formDaten1.get("change") != "") {
-            input4.style.borderColor = "blue";
-            input5.style.borderColor = "blue";
-            input6.style.borderColor = "blue";
-            warntext5.textContent = "";
-            warntext6.textContent = "";
-            warntext7.textContent = "";
-            warntext8.textContent = "";
-            let product = formDaten1.get("listprodukte");
-            //Hinzufügen
-            if (formDaten1.get("change") == "add") {
-                console.log("add");
-                let platzierung = searchInArray(product);
-                if (platzierung !== null) {
-                    warntext9.textContent = "Produkt wurde hinzugefügt";
-                    warntext9.style.color = "blue";
-                    console.log(allProducts);
-                    //Daten für  Produkt definieren
-                    let dueDateString = formDaten1.get("ablaufen1");
-                    let neuDate = {
-                        pieces: Number(formDaten1.get("mengenangabe1")),
-                        arriveDate: nowDate,
-                        dueDate: nowDate = new Date(dueDateString)
-                    };
-                    allProducts[platzierung].dates.push(neuDate);
+        let fetchedArray = await getAllProducts();
+        let formDaten1 = new FormData(form1);
+        if (fetchedArray.length > 0) {
+            if (formDaten1.get("listprodukte") != "" && formDaten1.get("mengenangabe1") != "" && formDaten1.get("change") != "") {
+                input4.style.borderColor = "blue";
+                input5.style.borderColor = "blue";
+                input6.style.borderColor = "blue";
+                warntext5.textContent = "";
+                warntext6.textContent = "";
+                warntext7.textContent = "";
+                warntext8.textContent = "";
+                let product = formDaten1.get("listprodukte");
+                let platzierung = await searchInArray(product);
+                //Hinzufügen
+                if (formDaten1.get("change") == "add") {
+                    if (formDaten1.get("ablaufen1") != "") {
+                        console.log("add");
+                        if (platzierung !== null) {
+                            warntext9.textContent = "Produkt wurde hinzugefügt";
+                            warntext9.style.color = "blue";
+                            //Daten für  Produkt definieren
+                            let dueDateString = formDaten1.get("ablaufen1");
+                            let dueDateHilfe = new Date();
+                            console.log(dueDateHilfe);
+                            let neuDate = {
+                                pieces: Number(formDaten1.get("mengenangabe1")),
+                                arriveDate: nowDate,
+                                dueDate: dueDateHilfe = new Date(dueDateString)
+                            };
+                            fetchedArray[platzierung].dates.push(neuDate);
+                            postProduct(fetchedArray[platzierung]);
+                        }
+                        else {
+                            warntext9.textContent = "Dieses Produkt existiert noch nicht. Legen Sie es neu an bei *Neues Produkt anlegen*!";
+                            warntext9.style.color = "red";
+                        }
+                    }
+                    else {
+                        input6.style.borderColor = "red";
+                        warntext8.textContent = "Bitte füllen Sie dieses Feld aus!";
+                        warntext8.style.color = "red";
+                    }
                 }
-                else {
-                    warntext9.textContent = "Dieses Produkt existiert noch nicht. Legen Sie es neu an bei *Neues Produkt anlegen*!";
-                    warntext9.style.color = "red";
-                }
-            }
-            else if (formDaten1.get("change") == "subtract") { //Wegnehmen
-                let platzierung = searchInArray(product);
-                let subtractpieces = Number(formDaten1.get("mengenangabe1"));
-                allProducts[platzierung].dates.sort((a, b) => {
-                    return b.dueDate.getTime() - a.dueDate.getTime(); //evtl a und b tauschen
-                });
-                if (subtractpieces > allProducts[platzierung].countAllBadPieces(false)) { //Mengenangabe überprüfen; zu groß?
-                    warntext9.textContent = "";
-                    for (let i = 0; i < allProducts[platzierung].dates.length; i++) {
-                        if (allProducts[platzierung].dates[i].dueDate <= nowDate) {
-                            if (subtractpieces != 0) {
-                                if (allProducts[platzierung].dates[i].pieces <= subtractpieces) { //durch Dates mengen durcharbeiten
-                                    subtractpieces -= allProducts[platzierung].dates[i].pieces;
-                                    allProducts[platzierung].dates.splice(platzierung, 1);
+                else if (formDaten1.get("change") == "subtract") { //Wegnehmen
+                    console.log("subtrasct");
+                    let subtractpieces = Number(formDaten1.get("mengenangabe1"));
+                    console.log(subtractpieces);
+                    fetchedArray[platzierung].dates.sort((a, b) => {
+                        let aDate = new Date(a.dueDate);
+                        let bDate = new Date(b.dueDate);
+                        return aDate.getTime() - bDate.getTime(); //evtl a und b tauschen
+                    });
+                    console.log(fetchedArray[platzierung].dates);
+                    let leerezaehler = 0;
+                    if (subtractpieces <= countAllBadPiecesProduct(false, fetchedArray[platzierung])) { //Mengenangabe überprüfen; zu groß?
+                        warntext9.textContent = "";
+                        for (let i = 0; i < fetchedArray[platzierung].dates.length; i++) {
+                            let ablaufdate = new Date(fetchedArray[platzierung].dates[i].dueDate);
+                            console.log(ablaufdate);
+                            if (ablaufdate.getTime() > nowDate.getTime()) {
+                                if (subtractpieces != 0) {
+                                    console.log(subtractpieces);
+                                    if (fetchedArray[platzierung].dates[i].pieces <= subtractpieces) { //durch Dates mengen durcharbeiten
+                                        subtractpieces = subtractpieces - fetchedArray[platzierung].dates[i].pieces;
+                                        fetchedArray[platzierung].dates[i].pieces = 0;
+                                        leerezaehler = leerezaehler + 1;
+                                    }
+                                    else {
+                                        fetchedArray[platzierung].dates[i].pieces -= subtractpieces;
+                                        subtractpieces = 0;
+                                    }
                                 }
                                 else {
-                                    allProducts[platzierung].dates[i].pieces -= subtractpieces;
-                                    subtractpieces = 0;
+                                    break;
                                 }
                             }
                             else {
-                                break;
+                                console.log("Fehler");
                             }
                         }
+                        //Alle leeren dates rauslöschen
+                        for (let i = (fetchedArray[platzierung].dates.length - 1); i > -1; i--) {
+                            if (fetchedArray[platzierung].dates[i].pieces == 0) {
+                                fetchedArray[platzierung].dates.splice(i, leerezaehler);
+                            }
+                        }
+                        postProduct(fetchedArray[platzierung]);
                     }
+                    else {
+                        warntext9.textContent = `Es gibt dafür zu wenig bereits vorhandene Produkte. Insgesamt gibt es ${countAllBadPiecesProduct(false, fetchedArray[platzierung])} Stücke.`;
+                        warntext9.style.color = "red";
+                    } //zu wenig
+                }
+            }
+            else {
+                //Hinweis bei Ausgefüllten Feldern
+                if (input4.value == "") {
+                    input4.style.borderColor = "red";
+                    warntext5.textContent = "Bitte füllen Sie dieses Feld aus!";
+                    warntext5.style.color = "red";
                 }
                 else {
-                    warntext9.textContent = `Es gibt dafür zu wenig bereits vorhandene Produkte. Insgesamt gibt es ${allProducts[platzierung].countAllBadPieces(false)} Stücke.`;
-                    warntext9.style.color = "red";
-                } //zu wenig
+                    input4.style.borderColor = "blue";
+                    warntext5.textContent = "";
+                }
+                if (input5.value == "") {
+                    input5.style.borderColor = "red";
+                    warntext7.textContent = "Bitte füllen Sie dieses Feld aus!";
+                    warntext7.style.color = "red";
+                }
+                else {
+                    input5.style.borderColor = "blue";
+                    warntext7.textContent = "";
+                }
+                if (input6.value == "") {
+                    input6.style.borderColor = "red";
+                    warntext8.textContent = "Bitte füllen Sie dieses Feld aus!";
+                    warntext8.style.color = "red";
+                }
+                else {
+                    input6.style.borderColor = "blue";
+                    warntext8.textContent = "";
+                }
+                if (formDaten1.get("change") == "") {
+                    warntext6.textContent = "Bitte füllen Sie dieses Feld aus!";
+                    warntext6.style.color = "red";
+                }
+                else {
+                    warntext6.textContent = "";
+                }
             }
-            await fetch("http://127.0.0.1:3000/allProducts", {
-                method: "post",
-                body: JSON.stringify(allProducts)
-            });
         }
         else {
-            //Hinweis bei Ausgefüllten Feldern
-            if (input4.value == "") {
-                input4.style.borderColor = "red";
-                warntext5.textContent = "Bitte füllen Sie dieses Feld aus!";
-                warntext5.style.color = "red";
-            }
-            else {
-                input4.style.borderColor = "blue";
-                warntext5.textContent = "";
-            }
-            if (input5.value == "") {
-                input5.style.borderColor = "red";
-                warntext7.textContent = "Bitte füllen Sie dieses Feld aus!";
-                warntext7.style.color = "red";
-            }
-            else {
-                input5.style.borderColor = "blue";
-                warntext7.textContent = "";
-            }
-            if (input6.value == "") {
-                input6.style.borderColor = "red";
-                warntext8.textContent = "Bitte füllen Sie dieses Feld aus!";
-                warntext8.style.color = "red";
-            }
-            else {
-                input6.style.borderColor = "blue";
-                warntext8.textContent = "";
-            }
-            if (formDaten1.get("change") == "") {
-                warntext6.textContent = "Bitte füllen Sie dieses Feld aus!";
-                warntext6.style.color = "red";
-            }
-            else {
-                warntext6.textContent = "";
-            }
+            warntext9.textContent = `Es gibt noch keine Produkte, bitte lege zuerst ein Produkt an.`;
+            warntext9.style.color = "red";
         }
     }
     ///////////////////////////////////////////////////////Produkt hinzufügen///////////////////////////////////////////////////////////////
     async function submitProduct(event) {
+        event.preventDefault();
         //überprüfen
         console.log("submitform2");
-        event.preventDefault();
-        let formDaten2 = new FormData(event.currentTarget);
+        let formDaten2 = new FormData(form2);
         if (formDaten2.get("ablaufen") != "" && formDaten2.get("names") != "" && formDaten2.get("mengenangabe") != "") {
             input1.style.borderColor = "blue";
             input2.style.borderColor = "blue";
@@ -215,28 +252,24 @@ var ClientNeueProdukte;
             warntext1.textContent = "";
             warntext2.textContent = "";
             warntext3.textContent = "";
-            if (searchInArray(formDaten2.get("names").toString()) == null) {
+            let fetchedArray = await getAllProducts();
+            let namenumber = await searchInArray(formDaten2.get("names").toString());
+            if (namenumber == null || fetchedArray.length == 0) {
                 warntext4.textContent = "";
                 //Daten für neues Produkt definieren
                 let dueDateString = formDaten2.get("ablaufen");
+                let dueDateHilfe = new Date();
+                console.log(dueDateHilfe);
                 let neuDate = {
                     pieces: Number(formDaten2.get("mengenangabe")),
                     arriveDate: nowDate,
-                    dueDate: nowDate = new Date(dueDateString)
+                    dueDate: dueDateHilfe = new Date(dueDateString)
                 };
-                //Überprüfen Einträge
-                console.log(neuDate);
                 let neuesProdukt = new Product(formDaten2.get("names"), [neuDate], 0, [formDaten2.get("notiz")]);
-                neuesProdukt.overallPieces = neuesProdukt.countAllPieces();
-                //Überprüfen Einträge
+                neuesProdukt.overallPieces = countAllPiecesProduct(neuesProdukt);
                 console.log(neuesProdukt);
-                allProducts.push(neuesProdukt);
-                //Alphabetisch sortieren
-                allProducts.sort((a, b) => a.name.localeCompare(b.name));
-                await fetch("http://127.0.0.1:3000/allProducts", {
-                    method: "post",
-                    body: JSON.stringify(allProducts)
-                });
+                postProduct(neuesProdukt);
+                options();
             }
             else {
                 warntext4.textContent = "Dieses Produkt existiert bereits. Bitte fügen Sie es bei *Bereits existierende Produktmengen verändern* hinzu.";
@@ -274,11 +307,87 @@ var ClientNeueProdukte;
             }
         }
     }
-    function searchInArray(name) {
+    ////////////////////////////////////////////////andere Funktionen/////////////////////////////////////////////////////////////////////////
+    //ganze Liste von Produkten bekommen
+    async function getAllProducts() {
+        let response = await fetch("http://127.0.0.1:3000/allProducts");
+        let responseText = await response.text();
+        return JSON.parse(responseText);
+    }
+    async function updateArray() {
+        let fetchedProductArray = await getAllProducts(); //? funktioniert nur in async function
+        allProducts = fetchedProductArray;
+        console.log(allProducts);
+    }
+    async function postProduct(product) {
+        console.log("postProduct", product);
+        await sendJSONStringWithPOST("http://127.0.0.1:3000/singleProduct", JSON.stringify({
+            name: product.name,
+            dates: product.dates,
+            overallPieces: product.overallPieces,
+            notice: product.notice,
+            _id: product._id
+        }));
+    }
+    async function sendJSONStringWithPOST(url, jsonString) {
+        await fetch(url, {
+            method: "post",
+            body: jsonString
+        });
+    }
+    function countAllPiecesProduct(product) {
+        let count = 0;
+        for (let i = 0; i < product.dates.length; i++) {
+            count = product.dates[i].pieces + count;
+        }
+        return count;
+    }
+    function countAllBadPiecesProduct(bad, product) {
+        let countBad = 0;
+        let countGood = 0;
+        //Daten vergleichen
+        for (let i = 0; i < product.dates.length; i++) {
+            let date1 = new Date(product.dates[i].dueDate);
+            console.log(date1);
+            if (date1.getFullYear() < nowDate.getFullYear()) {
+                countBad = product.dates[i].pieces + countBad;
+                console.log("Jahr");
+            }
+            else if (date1.getMonth() < nowDate.getMonth()) {
+                countBad = product.dates[i].pieces + countBad;
+                console.log("Monat");
+            }
+            else if (date1.getDate() < nowDate.getDate()) {
+                countBad = product.dates[i].pieces + countBad;
+                console.log("Tag");
+            }
+            else {
+                countGood = product.dates[i].pieces + countGood;
+            }
+        }
+        if (bad == true) {
+            console.log(countBad);
+            return countBad;
+        }
+        else {
+            if (countAllPiecesProduct(product) - countBad === countGood) {
+                console.log(countGood);
+                return countGood;
+            }
+            else {
+                //Überprüfen Daten
+                console.log("Error");
+                return 0;
+            }
+        }
+    }
+    async function searchInArray(name) {
+        let productsList = await getAllProducts();
+        console.log(productsList);
         let index;
         let nope = 0;
-        for (let i = 0; i < allProducts.length; i++) {
-            if (name == allProducts[i].name) {
+        for (let i = 0; i < productsList.length; i++) {
+            if (name == productsList[i].name) {
                 index = i;
                 break;
             }
@@ -286,32 +395,17 @@ var ClientNeueProdukte;
                 nope = nope + 1;
             }
         }
-        if (nope == allProducts.length) {
+        if (nope == productsList.length) {
             return null;
         }
         else {
             return index;
         }
     }
-    ////////////////////////////////////////////////andere Funktionen/////////////////////////////////////////////////////////////////////////
-    async function postJsonString(url, jsonString) {
-        let response = await fetch(url, {
-            method: "post",
-            body: jsonString
-        });
-        console.log(response);
-    }
-    //ein gewünschtes Produkt bekommen für Einzelansicht
-    async function getOneProduct(name) {
-        let response = await fetch(`http://localhost:3000/singleProduct?name=${name}`);
-        let responseText = await response.text();
-        return JSON.parse(responseText);
-    }
-    //ganze Liste von Produkten bekommen
-    async function getAllProducts() {
-        let response = await fetch("http://127.0.0.1:3000/allProducts");
-        let responseText = await response.text();
-        return JSON.parse(responseText);
+    function removeHTMLChildren(element) {
+        while (element.lastChild != document.getElementById("wichtig")) {
+            element.removeChild(element.lastChild);
+        }
     }
 })(ClientNeueProdukte || (ClientNeueProdukte = {}));
 //# sourceMappingURL=clientNeueProdukte.js.map
