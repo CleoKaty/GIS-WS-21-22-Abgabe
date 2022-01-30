@@ -37,7 +37,7 @@ var ClientIndex;
                 else if (this.dates[i].dueDate.getMonth() <= nowDate.getMonth()) {
                     countBad = this.dates[i].pieces + countBad;
                 }
-                else if (this.dates[i].dueDate.getDay() <= nowDate.getDate()) {
+                else if (this.dates[i].dueDate.getDay() <= nowDate.getDay()) {
                     countBad = this.dates[i].pieces + countBad;
                 }
                 else {
@@ -158,7 +158,7 @@ var ClientIndex;
                 countBad = product.dates[i].pieces + countBad;
                 console.log("Monat");
             }
-            else if (date1.getDate() < nowDate.getDate()) {
+            else if (date1.getDay() < nowDate.getDay()) {
                 countBad = product.dates[i].pieces + countBad;
                 console.log("Tag");
             }

@@ -37,7 +37,7 @@ var Verwaltung;
                 else if (this.dates[i].dueDate.getMonth() <= nowDate.getMonth()) {
                     countBad = this.dates[i].pieces + countBad;
                 }
-                else if (this.dates[i].dueDate.getDay() <= nowDate.getDate()) {
+                else if (this.dates[i].dueDate.getDay() <= nowDate.getDay()) {
                     countBad = this.dates[i].pieces + countBad;
                 }
                 else {
@@ -152,7 +152,7 @@ var Verwaltung;
             else if (date1.getMonth() <= nowDate.getMonth()) {
                 array[platzierungArray].dates.splice(i, 1);
             }
-            else if (date1.getDay() <= nowDate.getDate()) {
+            else if (date1.getDay() <= nowDate.getDay()) {
                 array[platzierungArray].dates.splice(i, 1);
             }
         }
@@ -196,7 +196,7 @@ var Verwaltung;
                 countBad = product.dates[i].pieces + countBad;
                 console.log("Monat");
             }
-            else if (date1.getDate() < nowDate.getDate()) {
+            else if (date1.getDay() < nowDate.getDay()) {
                 countBad = product.dates[i].pieces + countBad;
                 console.log("Tag");
             }
